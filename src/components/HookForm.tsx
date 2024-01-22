@@ -1,5 +1,15 @@
 import { useEffect } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+const schema = z.object({
+  name: z.string(),
+  email: z.string().email({ message: "E-mail Inválido" }),
+  phone: z.number(),
+  title: z.string(),
+});
 
 export function HookForm() {
   const {
@@ -7,7 +17,10 @@ export function HookForm() {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm();
+  } = useForm({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+  });
   const onSubmit = (data: any) => console.log("data", data);
 
   useEffect(() => {
@@ -46,9 +59,8 @@ export function HookForm() {
         id="email"
         {...register("email", { required: true, maxLength: 30 })}
       />
-      {errors.email && errors.email.type === "required" && (
-        <span>This is required</span>
-      )}
+      {errors.email?.message && <p>{String(errors.email?.message)}</p>}
+
       {errors.email && errors.email.type === "maxLength" && (
         <span>Max length exceeded</span>
       )}
@@ -62,24 +74,6 @@ export function HookForm() {
         <span>This is required</span>
       )}
       {errors.title && errors.title.type === "maxLength" && (
-        <span>Max length exceeded</span>
-      )}
-
-      <label htmlFor="numero">numero</label>
-      <input
-        id="numero"
-        {...register("numero", {
-          required: true,
-          maxLength: 30,
-          onChange(evt) {
-            setValue("numero", evt.target.value.replace("5", ""));
-          },
-        })}
-      />
-      {errors.numero && errors.numero.type === "required" && (
-        <span>This is required</span>
-      )}
-      {errors.numero && errors.numero.type === "maxLength" && (
         <span>Max length exceeded</span>
       )}
 
