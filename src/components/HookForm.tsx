@@ -82,6 +82,24 @@ export function HookForm() {
       {errors.numero && errors.numero.type === "maxLength" && (
         <span>Max length exceeded</span>
       )}
+
+      <label htmlFor="phone">phone</label>
+      <input
+        id="phone"
+        {...register("phone", {
+          required: true,
+          maxLength: 30,
+          onChange(evt) {
+            setValue("phone", evt.target.value.replace(/\D/g, ""));
+          },
+        })}
+      />
+      {errors.phone && errors.phone.type === "required" && (
+        <span>This is required</span>
+      )}
+      {errors.phone && errors.phone.type === "maxLength" && (
+        <span>Max length exceeded</span>
+      )}
       <input type="submit" />
     </form>
   );
