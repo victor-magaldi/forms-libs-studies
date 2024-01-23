@@ -1,8 +1,10 @@
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+// import { useEffect } from "react";
+// import { useController, useForm } from "react-hook-form";
 
-import { zodResolver } from "@hookform/resolvers/zod";
+// import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+
+import { useForm, useController, UseControllerProps } from "react-hook-form";
 
 const schema = z.object({
   name: z.string(),
@@ -10,90 +12,84 @@ const schema = z.object({
   title: z.string(),
   phone: z.string(),
 });
+type FormValues = {
+  FirstName: string;
+};
+
+function Input(props: UseControllerProps<FormValues>) {
+  const { field, fieldState } = useController(props);
+  console.log("fieldState", fieldState);
+  return (
+    <div>
+      <input {...field} placeholder={props.name} />
+      <p>{fieldState.invalid ? "invalid" : "valid"}</p>
+    </div>
+  );
+}
 
 export function HookForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm({
-    resolver: zodResolver(schema),
+  const { handleSubmit, control } = useForm<FormValues>({
+    defaultValues: {
+      FirstName: "",
+    },
     mode: "onChange",
   });
-  const onSubmit = (data: any) => console.log("data", data);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const req = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-        const result: any = await req.json();
+  const CheckboxGroup = ({ options, name }: any) => {
+    const {
+      field: { value, onChange },
+    } = useController({
+      name,
+      control,
+      defaultValue: [],
+    });
 
-        setValue("name", result.title);
-        setValue("email", result.title);
-        setValue("title", result.title);
-      } catch (error) {
-        console.error("Erro na requisição:", error);
-      }
-    };
+    return (
+      <div>
+        {options.map((option: any) => (
+          <label key={option.value}>
+            <input
+              type="checkbox"
+              value={option.value}
+              onChange={(e) => {
+                if (e.target.checked) {
+                  onChange([...value, option.value]);
+                } else {
+                  onChange(value.filter((val: string) => val !== option.value));
+                }
+              }}
+              checked={value.includes(option.value)}
+            />
+            {option.label}
+          </label>
+        ))}
+      </div>
+    );
+  };
 
-    fetchData();
-  }, []);
+  const onSubmit = (data: FormValues) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="name">Name</label>
-      <input
-        id="name"
-        {...register("name", { required: true, maxLength: 30 })}
-      />
-      {errors.name && errors.name.type === "required" && (
-        <span>This is required</span>
-      )}
-      {errors.name && errors.name.type === "maxLength" && (
-        <span>Max length exceeded</span>
-      )}
+      <Input control={control} name="FirstName" rules={{ required: true }} />
 
-      <label htmlFor="email">email</label>
-      <input
-        id="email"
-        {...register("email", { required: true, maxLength: 30 })}
+      <CheckboxGroup
+        options={[
+          { label: "Janeiro", value: "jan" },
+          { label: "Fevereiro", value: "fev" },
+          { label: "Março", value: "mar" },
+          { label: "Abril", value: "abr" },
+          { label: "Maio", value: "mai" },
+          { label: "Junho", value: "jun" },
+          { label: "Julho", value: "jul" },
+          { label: "Agosto", value: "ago" },
+          { label: "Setembro", value: "set" },
+          { label: "Outubro", value: "out" },
+          { label: "Novembro", value: "nov" },
+          { label: "Dezembro", value: "dez" },
+        ]}
+        name="meses"
       />
-      {errors.email?.message && <p>{String(errors.email?.message)}</p>}
-
-      {errors.email && errors.email.type === "maxLength" && (
-        <span>Max length exceeded</span>
-      )}
-
-      <label htmlFor="title">title</label>
-      <input
-        id="title"
-        {...register("title", { required: true, maxLength: 30 })}
-      />
-      {errors.title && errors.title.type === "required" && (
-        <span>This is required</span>
-      )}
-      {errors.title && errors.title.type === "maxLength" && (
-        <span>Max length exceeded</span>
-      )}
-
-      <label htmlFor="phone">phone</label>
-      <input
-        id="phone"
-        {...register("phone", {
-          required: true,
-          maxLength: 30,
-          onChange(evt) {
-            setValue("phone", evt.target.value.replace(/\D/g, ""));
-          },
-        })}
-      />
-      {errors.phone && errors.phone.type === "required" && (
-        <span>This is required</span>
-      )}
-      {errors.phone && errors.phone.type === "maxLength" && (
-        <span>Max length exceeded</span>
-      )}
       <input type="submit" />
     </form>
   );
