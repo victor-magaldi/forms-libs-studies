@@ -15,13 +15,12 @@ type FormValues = {
 };
 
 function Input(props: UseControllerProps<FormValues>) {
-  const { field, fieldState, formState } = useController(props);
-  console.log(formState);
+  const { field, fieldState } = useController(props);
   return (
     <div>
       <label htmlFor=""></label>
       <input {...field} placeholder={props.name} />
-      <p>{fieldState.invalid ? "invalid" : "valid"}</p>
+      <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
     </div>
   );
 }
@@ -38,7 +37,7 @@ export function HookForm() {
     mode: "onChange",
     resolver: zodResolver(schema),
   });
-
+  console.log("errors", errors);
   const CheckboxGroup = ({ options, name }: any) => {
     const {
       field: { value, onChange },
