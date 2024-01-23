@@ -28,9 +28,9 @@ function Input(props: UseControllerProps<FormValues>) {
 }
 
 export function HookForm() {
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, setValue } = useForm<FormValues>({
     defaultValues: {
-      FirstName: "",
+      FirstName: "teste",
     },
     mode: "onChange",
   });
@@ -71,6 +71,13 @@ export function HookForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <button
+        onClick={() => {
+          setValue("FirstName", "Victor De Souza Magaldi");
+        }}
+      >
+        First Name = Victor De Souza Magaldi
+      </button>
       <Input control={control} name="FirstName" rules={{ required: true }} />
 
       <CheckboxGroup
