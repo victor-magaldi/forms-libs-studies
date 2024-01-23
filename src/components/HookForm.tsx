@@ -7,8 +7,8 @@ import * as z from "zod";
 const schema = z.object({
   name: z.string(),
   email: z.string().email({ message: "E-mail Inválido" }),
-  phone: z.number(),
   title: z.string(),
+  phone: z.string(),
 });
 
 export function HookForm() {
