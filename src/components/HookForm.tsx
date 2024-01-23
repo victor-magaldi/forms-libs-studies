@@ -9,6 +9,7 @@ import { useForm, useController, UseControllerProps } from "react-hook-form";
 const schema = z.object({
   FirstName: z.string().max(5),
   meses: z.any(),
+  number: z.string(),
 });
 type FormValues = {
   FirstName: string;
@@ -24,20 +25,35 @@ function Input(props: UseControllerProps<FormValues>) {
     </div>
   );
 }
+function InputNumber(props: UseControllerProps<FormValues>) {
+  const { field, fieldState } = useController(props);
+
+  return (
+    <div>
+      <label htmlFor="">Number</label>
+      <input
+        {...field}
+        placeholder={props.name}
+        onChange={(e) => {
+          const novoValor = e.currentTarget.value.replace(/[^0-9]/g, "");
+          field.onChange(novoValor);
+        }}
+      />
+      <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
+    </div>
+  );
+}
 
 export function HookForm() {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FormValues>({
+  const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
-      FirstName: "teste",
+      FirstName: "Init",
+      number: "1",
     },
     mode: "onChange",
     resolver: zodResolver(schema),
   });
-  console.log("errors", errors);
+
   const CheckboxGroup = ({ options, name }: any) => {
     const {
       field: { value, onChange },
@@ -75,7 +91,7 @@ export function HookForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input control={control} name="FirstName" rules={{ required: true }} />
-
+      <InputNumber control={control} name="number" rules={{ required: true }} />
       <CheckboxGroup
         options={[
           { label: "Janeiro", value: "jan" },
