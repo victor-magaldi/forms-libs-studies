@@ -44,6 +44,38 @@ function InputNumber(props: UseControllerProps<FormValues>) {
   );
 }
 
+const CheckboxGroup: React.FC<any> = ({ options, name, control }) => {
+  const {
+    field: { value, onChange },
+  } = useController({
+    name,
+    control,
+    defaultValue: ["jan"],
+  });
+
+  return (
+    <div>
+      {options.map((option: any) => (
+        <label key={option.value}>
+          <input
+            type="checkbox"
+            value={option.value}
+            onChange={(e) => {
+              if (e.target.checked) {
+                onChange([...value, option.value]);
+              } else {
+                onChange(value.filter((val) => val !== option.value));
+              }
+            }}
+            checked={value.includes(option.value)}
+          />
+          {option.label}
+        </label>
+      ))}
+    </div>
+  );
+};
+
 export function HookForm() {
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
@@ -53,38 +85,6 @@ export function HookForm() {
     mode: "onChange",
     resolver: zodResolver(schema),
   });
-
-  const CheckboxGroup = ({ options, name }: any) => {
-    const {
-      field: { value, onChange },
-    } = useController({
-      name,
-      control,
-      defaultValue: ["jan"],
-    });
-
-    return (
-      <div>
-        {options.map((option: any) => (
-          <label key={option.value}>
-            <input
-              type="checkbox"
-              value={option.value}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  onChange([...value, option.value]);
-                } else {
-                  onChange(value.filter((val: string) => val !== option.value));
-                }
-              }}
-              checked={value.includes(option.value)}
-            />
-            {option.label}
-          </label>
-        ))}
-      </div>
-    );
-  };
 
   const onSubmit = (data: FormValues) => console.log(data);
 
@@ -108,6 +108,7 @@ export function HookForm() {
           { label: "Dezembro", value: "dez" },
         ]}
         name="meses"
+        control={control}
       />
       <input type="submit" />
     </form>
