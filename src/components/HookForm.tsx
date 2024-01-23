@@ -1,26 +1,25 @@
 // import { useEffect } from "react";
 // import { useController, useForm } from "react-hook-form";
 
-// import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import { useForm, useController, UseControllerProps } from "react-hook-form";
 
 const schema = z.object({
-  name: z.string(),
-  email: z.string().email({ message: "E-mail Inválido" }),
-  title: z.string(),
-  phone: z.string(),
+  FirstName: z.string().max(5),
+  meses: z.any(),
 });
 type FormValues = {
   FirstName: string;
 };
 
 function Input(props: UseControllerProps<FormValues>) {
-  const { field, fieldState } = useController(props);
-  console.log("fieldState", fieldState);
+  const { field, fieldState, formState } = useController(props);
+  console.log(formState);
   return (
     <div>
+      <label htmlFor=""></label>
       <input {...field} placeholder={props.name} />
       <p>{fieldState.invalid ? "invalid" : "valid"}</p>
     </div>
@@ -28,11 +27,16 @@ function Input(props: UseControllerProps<FormValues>) {
 }
 
 export function HookForm() {
-  const { handleSubmit, control, setValue } = useForm<FormValues>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       FirstName: "teste",
     },
     mode: "onChange",
+    resolver: zodResolver(schema),
   });
 
   const CheckboxGroup = ({ options, name }: any) => {
@@ -41,7 +45,7 @@ export function HookForm() {
     } = useController({
       name,
       control,
-      defaultValue: [],
+      defaultValue: ["jan"],
     });
 
     return (
@@ -71,13 +75,6 @@ export function HookForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <button
-        onClick={() => {
-          setValue("FirstName", "Victor De Souza Magaldi");
-        }}
-      >
-        First Name = Victor De Souza Magaldi
-      </button>
       <Input control={control} name="FirstName" rules={{ required: true }} />
 
       <CheckboxGroup
