@@ -8,9 +8,10 @@ import { schemaContact } from "../../types/ZodSchemas";
 import { InputText } from "./Inputs/InputText";
 import { InputNumber } from "./Inputs/InputNumber";
 import { CheckboxGroup } from "./Inputs/CheckboxGroup";
+import { useFormContextCustom } from "../../context/FormContext";
 
 export function Form() {
-  const { handleSubmit, control, formState } = useForm<FormValues>({
+  const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
       firstName: "Init",
       number: "1",
@@ -18,8 +19,11 @@ export function Form() {
     mode: "onChange",
     resolver: zodResolver(schemaContact),
   });
+  const { setDataForm } = useFormContextCustom();
 
-  const onSubmit = (data: FormValues) => console.log(data);
+  const onSubmit = (data: FormValues) => {
+    setDataForm(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

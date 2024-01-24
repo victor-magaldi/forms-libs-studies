@@ -27,4 +27,4 @@ export const FormContext: FC<MyContextProviderProps> = ({ children }) => {
   );
 };
 
-export const useFormContext = () => useContext(ContextDataForm);
+export const useFormContextCustom = () => useContext(ContextDataForm);
