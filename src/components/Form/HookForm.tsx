@@ -20,7 +20,7 @@ export function Form() {
   });
 
   const onSubmit = (data: FormValues) => console.log(data);
-
+  console.log(formState.errors, "formState");
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <InputText

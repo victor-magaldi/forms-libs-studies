@@ -1,7 +1,6 @@
 import { useController } from "react-hook-form";
 
 export const CheckboxGroup: React.FC<any> = (props) => {
-  console.log("------------>", props);
   const { options, name, control } = props;
   const {
     field: { value, onChange },

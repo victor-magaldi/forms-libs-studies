@@ -2,10 +2,14 @@ import { useController, UseControllerProps } from "react-hook-form";
 import { FormValues } from "../../../types/Form";
 
 export function InputSelect(props: UseControllerProps<FormValues>) {
-  const { field, fieldState } = useController(props);
+  const { field, fieldState } = useController({
+    ...props,
+    defaultValue: "opcao2",
+  });
+
   return (
     <div>
-      <label htmlFor="selectField">Selecione uma opção:</label>
+      <label htmlFor="seletor">Selecione uma opção:</label>
       <select {...field}>
         <option value="Selecione" disabled>
           Selecione uma opção
