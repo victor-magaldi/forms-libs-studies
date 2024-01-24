@@ -10,6 +10,7 @@ const schema = z.object({
   FirstName: z.string().max(5),
   meses: z.any(),
   number: z.string(),
+  seletor: z.string(),
 });
 type FormValues = {
   FirstName: string;
@@ -76,8 +77,26 @@ const CheckboxGroup: React.FC<any> = ({ options, name, control }) => {
   );
 };
 
+function InputSelect(props: UseControllerProps<FormValues>) {
+  const { field, fieldState } = useController(props);
+  return (
+    <div>
+      <label htmlFor="selectField">Selecione uma opção:</label>
+      <select {...field}>
+        <option value="Selecione" disabled>
+          Selecione uma opção
+        </option>
+        <option value="opcao1">Opção 1</option>
+        <option value="opcao2">Opção 2</option>
+        <option value="opcao3">Opção 3</option>
+      </select>
+
+      <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
+    </div>
+  );
+}
 export function HookForm() {
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, formState } = useForm<FormValues>({
     defaultValues: {
       FirstName: "Init",
       number: "1",
@@ -86,12 +105,19 @@ export function HookForm() {
     resolver: zodResolver(schema),
   });
 
+  console.log("formState", formState.errors);
   const onSubmit = (data: FormValues) => console.log(data);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input control={control} name="FirstName" rules={{ required: true }} />
       <InputNumber control={control} name="number" rules={{ required: true }} />
+      <InputSelect
+        control={control}
+        name="seletor"
+        rules={{ required: true }}
+      />
+
       <CheckboxGroup
         options={[
           { label: "Janeiro", value: "jan" },
