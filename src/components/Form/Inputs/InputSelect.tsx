@@ -1,7 +1,9 @@
 import { useController, UseControllerProps } from "react-hook-form";
 import { FormValues } from "../../../types/Form";
 
-export function InputSelect(props: UseControllerProps<FormValues>) {
+export const InputSelect: React.FC<UseControllerProps<FormValues>> = (
+  props
+) => {
   const { field, fieldState } = useController({
     ...props,
     defaultValue: "opcao2",
@@ -22,4 +24,4 @@ export function InputSelect(props: UseControllerProps<FormValues>) {
       <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
     </div>
   );
-}
+};

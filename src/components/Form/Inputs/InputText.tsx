@@ -1,7 +1,7 @@
 import { useController, UseControllerProps } from "react-hook-form";
 import { FormValues } from "../../../types/Form";
 
-export function InputText(props: UseControllerProps<FormValues>) {
+export const InputText: React.FC<UseControllerProps<FormValues>> = (props) => {
   const { field, fieldState } = useController(props);
   return (
     <div>
@@ -10,4 +10,4 @@ export function InputText(props: UseControllerProps<FormValues>) {
       <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
     </div>
   );
-}
+};
