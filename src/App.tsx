@@ -1,10 +1,13 @@
 import { Form } from "./components/Form/HookForm";
+import { FormContext } from "./context/FormContext";
 
 function App() {
   return (
     <>
-      <h1>React Hook Form</h1>
-      <Form />
+      <FormContext>
+        <h1>React Hook Form</h1>
+        <Form />
+      </FormContext>
     </>
   );
 }
