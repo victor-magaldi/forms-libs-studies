@@ -7,13 +7,16 @@ import * as z from "zod";
 import { useForm, useController, UseControllerProps } from "react-hook-form";
 
 const schema = z.object({
-  FirstName: z.string().max(5),
+  firstName: z.string().max(5),
   meses: z.any(),
   number: z.string(),
   seletor: z.string(),
 });
 type FormValues = {
-  FirstName: string;
+  firstName: string;
+  meses: string[];
+  number: string;
+  seletor: string;
 };
 
 function Input(props: UseControllerProps<FormValues>) {
@@ -64,8 +67,9 @@ const CheckboxGroup: React.FC<any> = ({ options, name, control }) => {
             onChange={(e) => {
               if (e.target.checked) {
                 onChange([...value, option.value]);
+                console.log("teste");
               } else {
-                onChange(value.filter((val) => val !== option.value));
+                onChange(value.filter((val: string) => val !== option.value));
               }
             }}
             checked={value.includes(option.value)}
@@ -98,7 +102,7 @@ function InputSelect(props: UseControllerProps<FormValues>) {
 export function HookForm() {
   const { handleSubmit, control, formState } = useForm<FormValues>({
     defaultValues: {
-      FirstName: "Init",
+      firstName: "Init",
       number: "1",
     },
     mode: "onChange",
@@ -110,7 +114,7 @@ export function HookForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Input control={control} name="FirstName" rules={{ required: true }} />
+      <Input control={control} name="firstName" rules={{ required: true }} />
       <InputNumber control={control} name="number" rules={{ required: true }} />
       <InputSelect
         control={control}
