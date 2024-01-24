@@ -1,10 +1,10 @@
-import { HookForm } from "./components/HookForm";
+import { Form } from "./components/Form/HookForm";
 
 function App() {
   return (
     <>
       <h1>React Hook Form</h1>
-      <HookForm />
+      <Form />
     </>
   );
 }
