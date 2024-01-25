@@ -23,9 +23,11 @@ a:hover {
 }
 
 body {
+  background-color: #d3d3d3;
   margin: 0;
   display: flex;
   place-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
