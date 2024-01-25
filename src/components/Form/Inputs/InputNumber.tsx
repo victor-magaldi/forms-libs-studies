@@ -8,7 +8,7 @@ export const InputNumber: React.FC<UseControllerProps<FormValues>> = (
 
   return (
     <div>
-      <label htmlFor="">Number</label>
+      <label htmlFor={props.name}>Number</label>
       <input
         {...field}
         placeholder={props.name}

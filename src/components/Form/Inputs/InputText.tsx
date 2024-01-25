@@ -5,7 +5,7 @@ export const InputText: React.FC<UseControllerProps<FormValues>> = (props) => {
   const { field, fieldState } = useController(props);
   return (
     <div>
-      <label htmlFor=""></label>
+      <label htmlFor={props.name}>Nome:</label>
       <input {...field} placeholder={props.name} />
       <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
     </div>

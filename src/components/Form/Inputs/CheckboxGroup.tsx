@@ -13,7 +13,7 @@ export const CheckboxGroup: React.FC<any> = (props) => {
   return (
     <div>
       {options.map((option: any) => (
-        <label key={option.value}>
+        <label key={option.value} htmlFor={props.name}>
           <input
             type="checkbox"
             value={option.value}
