@@ -9,11 +9,12 @@ import { InputText } from "./Inputs/InputText";
 import { InputNumber } from "./Inputs/InputNumber";
 import { CheckboxGroup } from "./Inputs/CheckboxGroup";
 import { useFormContextCustom } from "../../context/FormContext";
+import { dataMonths } from "./dataCheckbox";
 
 export function Form() {
   const { handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
-      firstName: "Init",
+      firstName: "My Name ",
       number: "1",
     },
     mode: "onChange",
@@ -38,24 +39,7 @@ export function Form() {
         name="seletor"
         rules={{ required: true }}
       />
-      <CheckboxGroup
-        options={[
-          { label: "Janeiro", value: "jan" },
-          { label: "Fevereiro", value: "fev" },
-          { label: "Março", value: "mar" },
-          { label: "Abril", value: "abr" },
-          { label: "Maio", value: "mai" },
-          { label: "Junho", value: "jun" },
-          { label: "Julho", value: "jul" },
-          { label: "Agosto", value: "ago" },
-          { label: "Setembro", value: "set" },
-          { label: "Outubro", value: "out" },
-          { label: "Novembro", value: "nov" },
-          { label: "Dezembro", value: "dez" },
-        ]}
-        name="meses"
-        control={control}
-      />
+      <CheckboxGroup options={dataMonths} name="meses" control={control} />
       <input type="submit" />
     </form>
   );
