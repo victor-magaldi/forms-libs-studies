@@ -7,7 +7,9 @@ export const InputText: React.FC<UseControllerProps<FormValues>> = (props) => {
     <div>
       <label htmlFor={props.name}>Nome:</label>
       <input {...field} placeholder={props.name} />
-      <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
+      <p className="message-error">
+        {fieldState?.error?.message ? fieldState?.error?.message : null}
+      </p>
     </div>
   );
 };

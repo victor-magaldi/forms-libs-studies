@@ -21,7 +21,9 @@ export const InputSelect: React.FC<UseControllerProps<FormValues>> = (
         <option value="opcao3">Opção 3</option>
       </select>
 
-      <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
+      <p className="message-error">
+        {fieldState?.error?.message ? fieldState?.error?.message : null}
+      </p>
     </div>
   );
 };

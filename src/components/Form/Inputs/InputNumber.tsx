@@ -17,7 +17,9 @@ export const InputNumber: React.FC<UseControllerProps<FormValues>> = (
           field.onChange(novoValor);
         }}
       />
-      <p>{fieldState?.error?.message ? fieldState?.error?.message : null}</p>
+      <p className="message-error">
+        {fieldState?.error?.message ? fieldState?.error?.message : null}
+      </p>
     </div>
   );
 };
