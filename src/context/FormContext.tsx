@@ -18,7 +18,7 @@ const ContextDataForm = createContext<MyContextProps>({} as MyContextProps);
 
 export const FormContext: FC<MyContextProviderProps> = ({ children }) => {
   const [dataForm, setDataForm] = useState<any>({});
-  console.log("data==> form", dataForm);
+  console.log("State Send DataForm Context", dataForm);
 
   return (
     <ContextDataForm.Provider value={{ dataForm, setDataForm }}>

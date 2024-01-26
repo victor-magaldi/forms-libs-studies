@@ -4,3 +4,7 @@ export type FormValues = {
   number: string;
   seletor: string;
 };
+export type typeOptionCheckbox = {
+  label: string;
+  value: string;
+};

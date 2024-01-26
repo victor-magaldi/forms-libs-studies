@@ -1,4 +1,5 @@
 import { useController } from "react-hook-form";
+import { typeOptionCheckbox } from "../../../types/Form";
 
 export const CheckboxGroup: React.FC<any> = (props) => {
   const { options, name, control } = props;
@@ -12,7 +13,7 @@ export const CheckboxGroup: React.FC<any> = (props) => {
 
   return (
     <div>
-      {options.map((option: any) => (
+      {options.map((option: typeOptionCheckbox) => (
         <label key={option.value} htmlFor={option.value}>
           <input
             type="checkbox"
