@@ -25,6 +25,7 @@ a:hover {
 body {
   background-color: #d3d3d3;
   margin: 0;
+  padding: 12px;
   display: flex;
   place-items: center;
   justify-content: center;
@@ -70,4 +71,15 @@ button:focus-visible {
 }
 .message-error {
   color: #c10c0c;
+}
+.submit-form {
+  cursor: pointer;
+  padding: 8px 16px;
+  color: #fff;
+  font-weight: bold;
+  background: #535bf2;
+  transition: 0.3s ease-in;
+}
+.submit-form:hover {
+  filter: brightness(0.8);
 }

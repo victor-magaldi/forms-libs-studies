@@ -40,7 +40,9 @@ export function Form() {
         rules={{ required: true }}
       />
       <CheckboxGroup options={dataMonths} name="meses" control={control} />
-      <input type="submit" />
+      <button className="submit-form" type="submit">
+        Enviar
+      </button>
     </form>
   );
 }
