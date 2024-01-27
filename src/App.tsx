@@ -4,12 +4,12 @@ import { JsonViewer } from "./components/JsonData/JsonData";
 
 function App() {
   return (
-    <>
+    <div className="container-page">
       <FormContext>
         <Form />
         <JsonViewer />
       </FormContext>
-    </>
+    </div>
   );
 }
 

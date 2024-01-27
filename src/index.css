@@ -83,3 +83,19 @@ button:focus-visible {
 .submit-form:hover {
   filter: brightness(0.8);
 }
+
+.checkbox-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.container-page {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.container-form {
+  padding: 0 12px;
+  border-right: solid 1px #1a1a1a;
+}

@@ -27,7 +27,7 @@ export function Form() {
   };
 
   return (
-    <>
+    <div className="container-form">
       <h2>Formulário - React Hook Form</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputText
@@ -50,6 +50,6 @@ export function Form() {
           Enviar
         </button>
       </form>
-    </>
+    </div>
   );
 }
