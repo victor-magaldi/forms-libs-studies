@@ -8,13 +8,13 @@ export const JsonViewer = () => {
     theme: "twilight",
     displayDataTypes: false,
     displayObjectSize: false,
-    indentWidth: 2,
-    name: "JSON DATA",
+    indentWidth: 4,
+    name: "JSON",
   };
 
   return (
     <div>
-      <h2>Data Form</h2>
+      <h2>Dados do Formulário Enviado</h2>
       <ReactJson {...reactJsonProps} />
     </div>
   );

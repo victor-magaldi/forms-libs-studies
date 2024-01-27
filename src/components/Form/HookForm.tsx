@@ -27,22 +27,29 @@ export function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <InputText
-        control={control}
-        name="firstName"
-        rules={{ required: true }}
-      />
-      <InputNumber control={control} name="number" rules={{ required: true }} />
-      <InputSelect
-        control={control}
-        name="seletor"
-        rules={{ required: true }}
-      />
-      <CheckboxGroup options={dataMonths} name="meses" control={control} />
-      <button className="submit-form" type="submit">
-        Enviar
-      </button>
-    </form>
+    <>
+      <h2>Formulário - React Hook Form</h2>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputText
+          control={control}
+          name="firstName"
+          rules={{ required: true }}
+        />
+        <InputNumber
+          control={control}
+          name="number"
+          rules={{ required: true }}
+        />
+        <InputSelect
+          control={control}
+          name="seletor"
+          rules={{ required: true }}
+        />
+        <CheckboxGroup options={dataMonths} name="meses" control={control} />
+        <button className="submit-form" type="submit">
+          Enviar
+        </button>
+      </form>
+    </>
   );
 }
