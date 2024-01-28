@@ -99,3 +99,7 @@ button:focus-visible {
   padding: 0 12px;
   border-right: solid 1px #1a1a1a;
 }
+
+.container-form input {
+  padding: 3px;
+}

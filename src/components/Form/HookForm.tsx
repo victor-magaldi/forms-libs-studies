@@ -35,6 +35,7 @@ export function Form() {
           name="firstName"
           rules={{ required: true }}
         />
+        <InputText control={control} name="email" rules={{ required: true }} />
         <InputNumber
           control={control}
           name="number"
